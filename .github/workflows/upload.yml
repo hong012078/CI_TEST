@@ -5,7 +5,7 @@ on:
     - main
   pull_request:
     branches:
-    -main
+    - main
 
 jobs:
   upload:
@@ -13,10 +13,22 @@ jobs:
     
     steps:
      - shell: bash
-        run: |
+       run: |
           expr 1 + 1 > output.log
       - name: Upload output file
         uses: actions/upload-artifact@v1
         with:
           name: output-log-file
           path: output.log
+  download:
+      name: Display results
+      needs: upload
+      runs-on: ubuntu-latest
+      steps:
+        - name download file uploaded from upload job
+          uses: actions/download-artifact@v2
+          with: output-log-file
+          shell:
+          run: |
+            value=`cat output-log-file`
+            echo The result is $value
