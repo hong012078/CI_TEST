@@ -32,5 +32,5 @@ jobs:
             name: output-log-file
         - shell: bash
           run: |
-            value=`cat output-log-file`
+            value=`cat output.log`
             echo The result is $value
